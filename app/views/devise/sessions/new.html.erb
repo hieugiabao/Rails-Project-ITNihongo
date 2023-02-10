@@ -1,0 +1,48 @@
+<div class="container w-50 px-5">
+  <div class="text-center p-4"><h2>Welcome back</h2></div>
+
+  <!-- Render error -->
+  <%- flash.each do |name, msg| -%>
+    <%= content_tag :div, msg, :class => "alert alert-danger" %>
+  <%- end -%>
+
+  <%= form_for(resource, as: resource_name, url: session_path(resource_name), data: {turbo: false}) do |f| %>
+    <!-- Email input -->
+    <div class="form-outline mb-4">
+      <%= f.label :email, 'Email address', class: "form-label" %><span class="text-danger"> *</span>
+      <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", id: "email", autofocus: true %>
+    </div>
+
+    <!-- Password input -->
+    <div class="form-outline mb-4">
+      <%= f.label :password, 'Password', class: "form-label" %><span class="text-danger"> *</span>
+      <%= f.password_field :password, autocomplete: "current-password", class: "form-control", id: "password" %>
+    </div>
+
+    <!-- 2 column grid layout for inline styling -->
+    <div class="row mb-4">
+      <% if devise_mapping.rememberable? %>
+        <div class="col d-flex justify-content-between">
+          <!-- Checkbox -->
+          <div class="form-check">
+            <%= f.check_box :remember_me, id: "rememberme", class: "form-check-input", checked: true %>
+            <%= f.label :remember_me, class: "form-check-label" %>
+          </div>
+        </div>
+      <% end %>
+
+      <div class="col" style="text-align: right;">
+        <!-- Simple link -->
+        <%= link_to "Fotgot password?", new_password_path('user') %>
+      </div>
+    </div>
+
+    <!-- Submit button -->
+    <%= f.submit "Sign in", class: "btn btn-primary btn-block mb-4 w-100" %>
+
+    <!-- Register buttons -->
+    <div class="text-left">
+      <p>Not a member? <%= link_to "Sign up", new_user_registration_path %></p>
+    </div>
+  <% end %>
+</div>
