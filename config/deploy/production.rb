@@ -47,8 +47,8 @@ server "52.90.4.176", user: "deploy", roles: %w(web app db)
 # --------------
  set :ssh_options, {
    keys: %w(~/.ssh/id_rsa),
-   forward_agent: false,
-   auth_methods: %w(password)
+   forward_agent: true,
+   user: fetch(:user)
  }
 #
 # The server-based syntax can be used to override options:
