@@ -18,7 +18,6 @@
 </div>
 
 
-<%= will_paginate @products %>
   <ul class="users">
     <% if @products.present? %>
 
@@ -26,6 +25,8 @@
       <%= render 'shared/product' , product: product %>
     <% end %>
   </ul>
+<%= will_paginate @products %>
+
 <% else %>
   <p>
     <br/><br/><hr/>
