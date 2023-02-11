@@ -1,0 +1,50 @@
+<div class="container mt-3">
+  <%= form_with(model: product) do |form| %>
+    <% if product.errors.any? %>
+      <div style="color: red">
+        <h2><%= pluralize(product.errors.count, "error") %> prohibited this product from being saved:</h2>
+
+        <ul>
+          <% product.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="form-outline mb-2">
+      <%= form.label :name, style: "display: block", class: "form-label" %>
+      <%= form.text_field :name, class: "form-control w-50" %>
+    </div>
+
+    <div class="form-outline mb-2">
+      <%= form.label :description, style: "display: block", class: "form-label" %>
+      <%= form.text_field :description, class: "form-control w-50" %>
+    </div>
+
+    <div class="form-outline mb-2">
+      <%= form.label :price, style: "display: block", class: "form-label" %>
+      <%= form.text_field :price, class: "form-control w-50" %>
+    </div>
+
+    <div class="form-outline mb-2">
+      <%= form.label :sale_price, style: "display: block", class: "form-label" %>
+      <%= form.text_field :sale_price, class: "form-control w-50" %>
+    </div>
+
+    <div class="form-outline mb-2">
+      <%= form.label :quantity, style: "display: block", class: "form-label" %>
+      <%= form.number_field :quantity, class: "form-control w-50" %>
+    </div>
+
+    <div class="mb-4">
+      <%= form.label :cover %>
+      <%= form.file_field :cover %>
+    </div>
+
+    <div>
+      <%= form.submit "Create", class: "btn btn-primary btn-block" %>
+    </div>
+  <% end %>
+
+</div>

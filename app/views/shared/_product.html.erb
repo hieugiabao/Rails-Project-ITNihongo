@@ -1,0 +1,75 @@
+<li>
+  <%= link_to product do %>
+    <%= render 'products/product_image', product: product %>
+  <%end %>
+
+  <div class="mt-2">
+    <strong>
+      Name :
+    </strong>
+    <%= product.name %>
+  </div>
+  <div>
+    <% if product.sale_price? %>
+      <strong>Old Price: </strong>
+      <span style="text-decoration: line-through;color: red;"><%= product.price %> $</span>
+      <br>
+      <strong>
+        Sale Price :
+      </strong>
+      <span><%= product.sale_price %> $</span>
+    <% else %>
+      <strong>
+        Price :
+      </strong>
+      <span><%= product.price %> $</span>
+    <% end %>
+  </div>
+
+  <section>
+    <%# if !@current_cart.products.include?(product) %>
+      <%# if user_signed_in? %>
+        <!-- Add to Cart -->
+        <%= link_to root_path, class: "btn btn-warning" , style: "margin-top:15px; width: 100%;" do %>
+          <i class="glyphicon glyphicon-plus" style="color:black;"></i>
+          <span>Add to Cart</span>
+        <% end %>
+      <%# end %>
+    <%
+=begin%>
+ <% else %>
+
+      <!-- reduce -->
+      <%= link_to root_path, class: "btn btn-danger" , style: "margin-top:15px;" do %>
+        <i class="glyphicon glyphicon-minus" style="color:black;"></i>
+        <span>Reduce</span>
+      <% end %>
+
+      <!-- add -->
+      <%= link_to root_path, class: "btn btn-success" , style: "margin-top:15px;" do %>
+        <i class="glyphicon glyphicon-plus" style="color:black;"></i>
+        <span>Add</span>
+      <% end %>
+
+      <!-- Remove -->
+      <%= link_to root_path, class: "btn btn-warning" , style: "margin-top:15px;" do %>
+        <i class="glyphicon glyphicon-remove" style="color:black;"></i>
+        <span>Remove Item</span>
+      <% end %>
+
+      <li>
+        Quantity: 0 | Total Price: 0
+      </li>
+    <% end %>
+<%
+=end%>
+  </section>
+
+  <div>
+    <!-- Only Admin is allowed to modify products -->
+    <% if user_signed_in? && current_user.admin? %>
+      <%= render "products/action", product: product %>
+    <% end %>
+  </div>
+
+</li>

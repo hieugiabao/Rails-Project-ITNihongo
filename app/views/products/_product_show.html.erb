@@ -1,0 +1,92 @@
+<% content_for :title, @product.name %>
+
+<div class="container">
+  <div class="card">
+    <div class="container">
+      <div class="wrapper row">
+        <div class="preview col-md-6">
+
+          <div class="preview-pic tab-content">
+              <%= render 'product_image' , :product => @product %>
+          </div>
+        </div>
+        <div class="details col-md-6">
+          <h3 class="product-title"><%= @product.name %></h3>
+          <div class="rating">
+            <div class="stars">
+              <span class="fa fa-star checked"></span>
+              <span class="fa fa-star checked"></span>
+              <span class="fa fa-star checked"></span>
+              <span class="fa fa-star checked"></span>
+              <span class="fa fa-star checked"></span>
+            </div>
+            <span class="review-no">41 reviews</span>
+          </div>
+          <p class="product-description"><%= @product.description %></p>
+          <% if @product.sale_price? %>
+            <h4 class="price">sale price: <span><%= number_to_currency(@product.sale_price) %></span></h4>
+            <h4 class="price old-price">old price: <span style="text-decoration: line-through;"><%= number_to_currency(@product.price) %></span></h4>
+          <% else %>
+            <h4 class="price">current price: <span><%= number_to_currency(@product.price) %></span></h4>
+          <% end %>
+          <div class="action">
+
+            <%
+=begin%>
+ <%if !@current_cart.products.include?(product)%>
+              <%# if logged_in? %>
+                <!-- Add to Cart -->
+                <%=button_to line_items_path(:product_id => product.id), class: "btn btn-warning" , style: "margin-top:15px;" , params:{productID: product.id} do %>
+                <i class="glyphicon glyphicon-plus" style="color:black;"></i>
+                Add to Cart
+              <% end %>
+              <%# end %>
+              <%else %>
+
+                <!-- See lineItem section below for explanation of line_item links -->
+                <ul class="users">
+                  <!-- <li> -->
+                  <!-- <%#= link_to "Add one", line_item_add_path(:id => line_item), method: :post %> -->
+
+                  <!-- reduce -->
+                  <%=link_to line_item_reduce_path(:id =>@current_cart.line_items.find_by(product_id: product.id)) , method: :post, class: "btn btn-danger" , style: "margin-top:15px;" do %>
+                  <i class="glyphicon glyphicon-minus" style="color:black;"></i>
+                  Reduce
+                <% end %>
+
+                <!-- add -->
+                <%=link_to line_item_add_path(:id => @current_cart.line_items.find_by(product_id: product.id)) , method: :post , class: "btn btn-success" , style: "margin-top:15px;" do %>
+                <i class="glyphicon glyphicon-plus" style="color:black;"></i>
+                Add
+              <% end %>
+
+              <!-- Remove -->
+              <%=link_to line_item_path(@current_cart.line_items.find_by(product_id: product.id)) ,method: :delete ,class: "btn btn-warning" , style: "margin-top:15px;" do %>
+              <i class="glyphicon glyphicon-remove" style="color:black;"></i>
+              Remove Item
+            <% end %>
+
+            <li>Quantity:
+              <%= @current_cart.line_items.find_by(product_id: product.id).quantity %>
+              | Total Price:
+              <%= number_to_currency(@current_cart.line_items.find_by(product_id: product.id).total_price) %>
+              <hr class="style18"/>
+          </ul>
+        <%end %>
+<%
+=end%>
+      </p>
+
+      <p>
+
+        <!-- Only Admin is allowed to modify products -->
+        <% if user_signed_in? && current_user.admin? %>
+          <%= render "products/action", :product => @product %>
+        <% end %>
+    </p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>

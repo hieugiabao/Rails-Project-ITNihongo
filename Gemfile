@@ -5,6 +5,8 @@ ruby "3.2.0"
 
 gem "devise" # Authentication
 
+gem "will_paginate" # Pagination
+
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.0.4", ">= 7.0.4.2"
 
@@ -75,3 +77,5 @@ group :test do
   gem "selenium-webdriver"
   gem "webdrivers"
 end
+
+gem "ruby-lsp", "~> 0.3.8", :group => :development
