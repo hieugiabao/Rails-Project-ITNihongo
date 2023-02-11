@@ -1,3 +1,7 @@
 <% content_for :title, "ホーム" %>
 
+<%- flash.each do |name, msg| -%>
+  <%= content_tag :div, msg, :class => "alert alert-info" %>
+<%- end -%>
+
 <h1>home page</h1>

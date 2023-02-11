@@ -1,0 +1,36 @@
+<div class="center jumbotron">
+  <h3 style="margin-left: 24px;">
+    <% if params[:search].blank? %>
+      All Products (<%= @products.count %>)
+    <%else %>
+      Found => [
+      <%= pluralize(@products.count, " ] Product") %>
+    <%end %>
+  </h2>
+
+  <!-- Only Admin is allowed to create new products -->
+  <% if user_signed_in? && current_user.admin? %>
+    <%= link_to new_product_path , class: "btn btn-success" , style: "margin-top:15px;" do %>
+      <i class="glyphicon glyphicon-plus" style="color:black;"></i>
+      <span>Create New Product (Admin)</span>
+    <%end %>
+  <% end %>
+</div>
+
+
+<%= will_paginate @products %>
+  <ul class="users">
+    <% if @products.present? %>
+
+    <% @products.each do |product| %>
+      <%= render 'shared/product' , product: product %>
+    <% end %>
+  </ul>
+<% else %>
+  <p>
+    <br/><br/><hr/>
+    There are no products containing the term(s) `
+    <strong><%= params[:search] %></strong>
+    `
+  </p>
+<% end %>
