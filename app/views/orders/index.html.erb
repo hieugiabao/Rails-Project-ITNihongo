@@ -1,0 +1,30 @@
+<div class="center jumbotron mb-4">
+  <h2>
+    <% if params[:search].blank? %>
+
+      <%if current_user.admin? %>
+        ADMIN --- All Orders (<%= @orders.count %>)
+      <%else%>
+        USER --- All Orders (<%= current_user.orders.count %>)
+      <%end%>
+    <%else %>
+      Found => [
+      <%= pluralize(@orders.count, " ] Order") %>
+    <%end %>
+  </h2>
+</div>
+
+<% @orders.each do |order| %>
+  <%= render 'order' , :order => order %>
+<% end %>
+
+<%= will_paginate @orders %>
+
+<% if @orders.count < 1 %>
+  <div class="alert alert-info">
+    <strong>Sorry!</strong> No Orders Found.
+  </div>
+
+  <div class="text-center mt-4">
+    <%= button_to "Continue Shopping", products_path , class: "btn btn-block btn-primary" , method: :get%>
+<% end %>

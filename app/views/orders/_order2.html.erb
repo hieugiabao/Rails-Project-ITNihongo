@@ -1,0 +1,12 @@
+<h3>
+  Order ID:
+  <%= order.id %>
+  , User ID:
+  <%= order.user_id %></h3>
+<p>
+  <strong>Name:</strong>
+  <%= User.find_by(id:order.user_id).name %>
+
+  ,
+  <strong>Email:</strong>
+  <%= User.find_by(id:order.user_id).email %>
