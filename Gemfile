@@ -79,3 +79,9 @@ group :test do
 end
 
 gem "ruby-lsp", "~> 0.3.8", :group => :development
+
+gem "capistrano"
+gem "capistrano3-puma"
+gem "capistrano-rails", require: false
+gem "capistrano-bundler", require: false
+gem "capistrano-rvm"
