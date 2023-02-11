@@ -29,3 +29,22 @@
     }
   }
 }
+
+.badge {
+  position: relative;
+  margin-right: 16px;
+
+  #total_cart_items_badge {
+    background: rgb(80, 80, 204);
+    padding: 2px 4px;
+    border-radius: 50%;
+    position: absolute;
+    top: -6px;
+    right: -4px;
+    font-size: 12px;
+  }
+}
+
+.button_to {
+  display: inline !important;
+}

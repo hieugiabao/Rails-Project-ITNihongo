@@ -27,42 +27,10 @@
   </div>
 
   <section>
-    <%# if !@current_cart.products.include?(product) %>
-      <%# if user_signed_in? %>
-        <!-- Add to Cart -->
-        <%= link_to root_path, class: "btn btn-warning" , style: "margin-top:15px; width: 100%;" do %>
-          <i class="glyphicon glyphicon-plus" style="color:black;"></i>
-          <span>Add to Cart</span>
-        <% end %>
-      <%# end %>
-    <%
-=begin%>
- <% else %>
-
-      <!-- reduce -->
-      <%= link_to root_path, class: "btn btn-danger" , style: "margin-top:15px;" do %>
-        <i class="glyphicon glyphicon-minus" style="color:black;"></i>
-        <span>Reduce</span>
-      <% end %>
-
-      <!-- add -->
-      <%= link_to root_path, class: "btn btn-success" , style: "margin-top:15px;" do %>
-        <i class="glyphicon glyphicon-plus" style="color:black;"></i>
-        <span>Add</span>
-      <% end %>
-
-      <!-- Remove -->
-      <%= link_to root_path, class: "btn btn-warning" , style: "margin-top:15px;" do %>
-        <i class="glyphicon glyphicon-remove" style="color:black;"></i>
-        <span>Remove Item</span>
-      <% end %>
-
-      <li>
-        Quantity: 0 | Total Price: 0
-      </li>
+    <%= button_to line_items_path(:product_id => product.id, ), class: "btn btn-warning" , style: "margin-top:15px; width: 100%;", params: { product_id: product.id } do %>
+      <i class="glyphicon glyphicon-plus" style="color:black;"></i>
+      <span>Add to Cart</span>
     <% end %>
-<%
-=end%>
   </section>
 
   <div>

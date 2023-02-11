@@ -24,6 +24,13 @@
         </div>
       <% end %>
       <% if user_signed_in? %>
+        <%= link_to cart_path do %>
+          <span class="badge">
+            <i class="fa fa-cart-plus" style="color:#442213; font-size:20px"></i>
+
+            <i id="total_cart_items_badge"><%= @current_cart.line_items.count %></i>
+          </span>
+        <% end %>
         <div class="dropdown">
           <button type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <% if current_user.avatar.attached? %>

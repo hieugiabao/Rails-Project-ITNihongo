@@ -1,0 +1,107 @@
+<% content_for :title, "Cart" %>
+
+<% if !notice.to_s.empty? %>
+  <p id="notice" class="alert alert-info"><%= notice %></p>
+<% end %>
+
+<section class="jumbotron text-center">
+  <div class="container">
+    <h1 class="jumbotron-heading">My Cart</h1>
+  </div>
+</section>
+
+<div class="container mb-4">
+  <% if @cart.line_items.count > 0 %>
+    <div class="row">
+      <div class="col-12">
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col"></th>
+                <th scope="col">Product</th>
+                <th scope="col">Available</th>
+                <th scope="col" class="text-center">Quantity</th>
+                <th scope="col" class="text-right">Price</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @cart.line_items.each do |line_item| %>
+                <%= render 'carts/cart_line_item' , :product => line_item.product , :line_item => line_item %>
+              <% end %>
+              <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>Sub-Total</td>
+                <td class="text-right"><%= number_to_currency(@cart.sub_total) %></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>Shipping</td>
+                <td class="text-right">free</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>
+                  <strong>Total</strong>
+                </td>
+                <td class="text-right">
+                  <strong><%= number_to_currency(@cart.sub_total) %></strong>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="col mb-2">
+        <div class="row">
+          <% if(@current_cart.line_items.count !=0 ) %>
+            <div class="col-sm-6">
+              <button type="button" class="btn btn-lg btn-block btn-warning text-uppercase" data-toggle="modal" data-target="#exampleModal">
+                Delete all
+              </button>
+
+              <!-- Modal -->
+              <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Clear your cart?</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      Are you sure you want to delete all items from your cart?
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      <%= button_to "Delete", cart_destroy_path(@current_cart) , method: :delete, class: "btn btn-danger" %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6" style="text-align: right;">
+              <%= button_to "Checkout", root_path , method: :get,class: "btn btn-lg btn-block btn-success text-uppercase"%>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  <% else %>
+    <div class="my-5 text-center">Your cart is empty</div>
+  <% end %>
+  <div class="text-center mt-4">
+    <%= button_to "Continue Shopping", root_path , class: "btn btn-block btn-primary" , method: :get%>
+  </div>
+</div>
