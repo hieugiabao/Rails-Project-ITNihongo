@@ -1,5 +1,7 @@
 <% content_for :title, "プレゼント" %>
 
-<p id="notice"><%= notice %></p>
+<% if !notice.to_s.empty? %>
+  <p id="notice" class="alert alert-info"><%= notice %></p>
+<% end %>
 
 <%= render 'shared/products' %>
