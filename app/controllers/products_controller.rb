@@ -86,6 +86,9 @@ class ProductsController < ApplicationController
     end
 
     def is_ordered
+      if current_user.nil?
+        return false
+      end
       current_user.orders.each do |order|
         order.line_items.each do |line_item|
           return true if line_item.product_id == @product.id
