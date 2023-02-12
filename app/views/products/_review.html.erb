@@ -1,0 +1,13 @@
+<div class="container my-4">
+  <% if product_reviews.count > 0 %>
+    <h3>All reviews and rates (<%= product_reviews.count %>)</h3>
+  <% else %>
+    <h3>No review recent</h3>
+  <% end %>
+
+  <% product_reviews.each do |review| %>
+    <%= render 'shared/review_item', review: review %>
+  <% end %>
+</div>
+
+<%= will_paginate product_reviews %>

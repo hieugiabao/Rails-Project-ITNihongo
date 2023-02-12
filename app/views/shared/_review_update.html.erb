@@ -1,0 +1,44 @@
+<div class="container mt-3">
+  <h5>Update your review</h5>
+  <%= form_for(product_review, url: product_review_update_path(product_review), method: :post) do |f| %>
+    <div>
+      <%= f.label :rate, 'Rate', class: "form-label" %>
+      <div class="rating review-<%= product_review.id %>">
+        <span class="stars me-3">
+          <% for i in 0...(product_review.rate) do %>
+            <i class="fa fa-star px-1 checked" data-rating="<%= i+1 %>"></i>
+          <% end %>
+          <% for i in 0...(5-product_review.rate) do %>
+            <i class="fa fa-star px-1" data-rating="<%= 1+i+product_review.rate %>"></i>
+          <% end %>
+        </span>
+      </div>
+      <%= f.number_field :rate, hidden: true, id: "rating-#{product_review.id}" %>
+    </div>
+    <div class="form-outline mb-4">
+      <%= f.label :content, 'Review', class: "form-label" %><span class="text-danger"> *</span>
+      <%= f.text_area :content, autocomplete: false, class: "form-control", id: "content", style: "max-height: 100px" %>
+    </div>
+
+    <div class="mb-4">
+      <%= f.submit "Update", class: "btn btn-primary btn-block mb-4" %>
+    </div>
+  <% end %>
+</div>
+
+<script >
+  const updateStars<%= product_review.id %> = document.querySelectorAll('.rating.review-<%= product_review.id %> i.fa.fa-star');
+  updateStars<%= product_review.id %>.forEach((star) => {
+    star.addEventListener('click', () => {
+      const rating = star.getAttribute('data-rating');
+      document.getElementById('rating-<%= product_review.id %>').value = rating;
+      for (let i = 0; i < rating; i++) {
+        console.log(updateStars<%= product_review.id %>[i])
+        updateStars<%= product_review.id %>[i].classList.add('checked');
+      }
+      for (let i = rating; i < 5; i++) {
+        updateStars<%= product_review.id %>[i].classList.remove('checked');
+      }
+    });
+  });
+</script>

@@ -8,11 +8,20 @@ class Product < ApplicationRecord
     where('name LIKE ?', "%#{search}%")
   end
 
-  def self.avg_rate
+  def avg_rate
     sum = 0
     product_reviews.each do |product_review|
       sum += product_review.rate
     end
-    sum / product_reviews.count
+    if product_reviews.count == 0
+      rate = 0
+    else
+      rate = sum / product_reviews.count
+    end
+    rate
+  end
+
+  def review_paginate(page)
+    product_reviews.order('updated_at DESC').paginate(page: page, per_page: 5)
   end
 end

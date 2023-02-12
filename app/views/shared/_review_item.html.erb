@@ -1,0 +1,71 @@
+<div class="reviews-members pt-4 pb-4">
+  <div class="media">
+    <div class="d-flex">
+      <span>
+        <% if review.user.avatar.attached? %>
+          <%= image_tag review.user.avatar, size: "50x45" %>
+        <% else %>
+          <%= image_tag "avatar.png", size: "45x45" %>
+        <% end %>
+      </span>
+      <span>
+        <span class="d-flex gap-3">
+          <h6 class="mb-1"><%= review.user.name %></h6>
+          <span class="stars me-3">
+            <% for i in 0...(review.rate) do %>
+              <i class="fa fa-star checked"></i>
+            <% end %>
+            <% for i in 0...(5-review.rate) do %>
+              <i class="fa fa-star"></i>
+            <% end %>
+          </span>
+        </span>
+        <p class="text-gray"><%= review.updated_at.strftime("%F %T") %></p>
+      </span>
+    </div>
+    <div class="media-body mx-5">
+      <p><%= review.content %></p>
+    </div>
+    <% if review.user.id == current_user.id %>
+      <div class="d-flex gap-4">
+        <button type="button" data-toggle="collapse" data-target="#<%= review.id %>">
+          <i class="bi bi-pencil-square"></i>
+          <span>Edit</span>
+        </button>
+        <button type="button" data-toggle="modal" data-target="#confirmRmRvModal">
+          <i class="bi bi-trash" style="color:firebrick"></i>
+          <span>Remove</span>
+        </button>
+      </div>
+      <!-- Modal -->
+      <div class="modal fade" id="confirmRmRvModal" tabindex="-1" role="dialog" aria-labelledby="confirmRmRvModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="confirmRmRvModalLabel">Delete this review?</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              This action cannot be undone.
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <%= button_to product_review_destroy_path(review), method: :delete, class: "btn btn-primary", params: { id: review.id } do %>
+                <span>Confirm</span>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- collapse -->
+      <div id="<%= review.id %>" class="collapse">
+        <%= render 'shared/review_update', product_review: review %>
+      </div>
+
+    <% end %>
+    <hr>
+  </div>
+</div>

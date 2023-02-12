@@ -1,7 +1,9 @@
-<p style="color: green"><%= notice %></p>
+<% if !notice.to_s.empty? %>
+  <p id="notice" class="alert alert-info"><%= notice %></p>
+<% end %>
 
 <div class="center jumbotron">
   <ul class="users">
-    <%= render 'products/product_show' , :product => @product %>
+    <%= render 'products/product_show' , :product => @product, :product_review => @product_review %>
   </ul>
 </div>
