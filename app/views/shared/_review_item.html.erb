@@ -3,9 +3,9 @@
     <div class="d-flex">
       <span>
         <% if review.user.avatar.attached? %>
-          <%= image_tag review.user.avatar, size: "50x45" %>
+          <%= image_tag review.user.avatar, size: "50x45", style: "margin-right: 16px;" %>
         <% else %>
-          <%= image_tag "avatar.png", size: "45x45" %>
+          <%= image_tag "avatar.png", size: "45x45", style: "margin-right: 16px;" %>
         <% end %>
       </span>
       <span>
@@ -26,7 +26,7 @@
     <div class="media-body mx-5">
       <p><%= review.content %></p>
     </div>
-    <% if review.user.id == current_user.id %>
+    <% if user_signed_in? and review.user.id == current_user.id %>
       <div class="d-flex gap-4">
         <button type="button" data-toggle="collapse" data-target="#<%= review.id %>">
           <i class="bi bi-pencil-square"></i>
