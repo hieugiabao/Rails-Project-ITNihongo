@@ -1,27 +1,31 @@
-<div id="<%= dom_id product %>">
-  <p>
-    <strong>Name:</strong>
-    <%= product.name %>
-  </p>
+<span>
+  <%= link_to product do%>
+    <% if product.cover.attached? %>
+      <%= image_tag product.cover , size:"100x100", style: "border-radius: 4px; margin-right: 16px;"%>
+    <% else %>
+      <%= image_tag "no_image.png", size:"100x100", style: "margin-right: 16px;" %>
+    <%end%>
+  <%end %>
 
-  <p>
-    <strong>Description:</strong>
-    <%= product.description %>
-  </p>
-
-  <p>
-    <strong>Price:</strong>
-    <%= product.price %>
-  </p>
-
-  <p>
-    <strong>Sale price:</strong>
+  <strong>
+    Name :
+  </strong>
+  <%= product.name %>
+  ,<strong>
+    Price :
+  </strong>
+  <% if product.sale_price? %>
     <%= product.sale_price %>
-  </p>
+  <% else %>
+    <%= product.price %>
+  <% end %>$
 
   <p>
-    <strong>Quantity:</strong>
-    <%= product.quantity %>
-  </p>
 
-</div>
+    <!-- Only Admin is allowed to modify products -->
+    <% if user_signed_in? && current_user.admin? %>
+      <%= render 'products/action', product: product %>
+    <% end %>
+
+  </p>
+</li>

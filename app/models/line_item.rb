@@ -3,6 +3,8 @@ class LineItem < ApplicationRecord
   belongs_to :cart
   # belongs_to :order
 
+  attr_accessor :order_id, :cart_id
+
   def total_price
     if valid_quantity_and_price?
       if product.sale_price.to_s.strip.empty?

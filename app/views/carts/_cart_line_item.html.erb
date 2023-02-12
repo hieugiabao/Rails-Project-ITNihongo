@@ -13,9 +13,12 @@
 
   <td>
     <% if product.quantity < 1 %>
-      <span>Out stock</span>
+      <span class="text-danger">Out stock</span>
     <% else %>
-      <span>In stock</span>
+      <div class="d-flex flex-column gap-4 justify-content-center">
+        <span class="text-success">In stock</span>
+        <span><%= product.quantity %> products stores</span>
+      </div>
     <% end %>
   </td>
 

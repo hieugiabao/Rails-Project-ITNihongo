@@ -1,0 +1,52 @@
+<% content_for :title, "Orders" %>
+
+<div class="container">
+  <h3>
+    Order ID:
+    <%= order.id %>
+    , User ID:
+    <%= order.user_id %></h3>
+  <p>
+    <strong>Name:</strong>
+    <%= User.find_by(id:order.user_id).name %>
+
+    ,
+    <strong>Email:</strong>
+    <%= User.find_by(id:order.user_id).email %>
+
+    ,
+    <strong>Pay method:</strong>
+    <%= order.pay_method %></p>
+  <p>
+    <strong>
+      Description</strong>
+    <div class="well well-sm"><%= order.description %></div>
+  </p>
+  <p>
+    <h3>Total price:
+      <%= number_to_currency(order.sub_total) %></h3>
+  </p>
+
+  <button type="button" class="btn btn-success" data-toggle="collapse" data-target="#<%= order.id %>">Show Items</button>
+  <div id="<%= order.id %>" class="collapse">
+    <ul class="d-flex align-items-center users gap-5">
+      <% order.line_items.each do |item| %>
+        <span style="font-size: 20px;">
+          <%= item.quantity %>x
+        </span>
+        <%= render 'shared/order_product' , product: item.product %>
+      <% end %>
+      <br/>
+    </ul>
+  </div>
+
+  <!-- Only Admin is allowed to modify Orders -->
+  <% if user_signed_in? && current_user.admin? %>
+    <%= link_to edit_order_path(order), class: "btn btn-primary" do %>
+      <i class="bi bi-pencil-fill"></i>
+      Edit
+    <% end %>
+  <% end %>
+
+</div>
+<hr/>

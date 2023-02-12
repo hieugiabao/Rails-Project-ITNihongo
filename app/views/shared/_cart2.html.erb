@@ -1,0 +1,24 @@
+<div class="center jumbotron">
+  <p>
+    <h3>Total price:
+      <%= number_to_currency(@cart.sub_total) %></h3>
+  </p>
+  <section>
+    <% @cart.line_items.each do |line_item| %>
+      <div class="row">
+        <div class="col">
+          <%= render 'products/product' , :product => line_item.product %>
+        </div>
+        <div class="col-md-auto">
+          <div>Quantity:
+            <%= line_item.quantity %>
+          </div>
+          <div>Total Price:
+            <%= number_to_currency(line_item.total_price) %></div>
+        </div>
+        <hr class="style18">
+      </div>
+    <% end %>
+  </section>
+
+</div>
