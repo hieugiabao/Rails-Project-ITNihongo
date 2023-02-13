@@ -1,6 +1,6 @@
 <li style="width: 220px; overflow: hidden;">
   <div class="text-center mb-1">
-    <%= link_to product do %>
+    <%= link_to product, data: {turbo: false} do %>
       <%= render 'products/product_image', product: product %>
     <%end %>
   </div>

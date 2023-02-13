@@ -35,17 +35,17 @@
           <i class="bi bi-pencil-square"></i>
           <span>Edit</span>
         </button>
-        <button type="button" data-toggle="modal" data-target="#confirmRmRvModal">
+        <button type="button" data-toggle="modal" data-target="#confirmRmRvModal<%= review.id %>">
           <i class="bi bi-trash" style="color:firebrick"></i>
           <span>Remove</span>
         </button>
       </div>
       <!-- Modal -->
-      <div class="modal fade" id="confirmRmRvModal" tabindex="-1" role="dialog" aria-labelledby="confirmRmRvModalLabel" aria-hidden="true">
+      <div class="modal fade" id="confirmRmRvModal<%= review.id %>" tabindex="-1" role="dialog" aria-labelledby="confirmRmRvModal<%= review.id %>Label" aria-hidden="true">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="confirmRmRvModalLabel">Delete this review?</h5>
+              <h5 class="modal-title" id="confirmRmRvModal<%= review.id %>Label">Delete this review?</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
