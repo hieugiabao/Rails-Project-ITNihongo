@@ -1,7 +1,9 @@
 <li style="width: 220px; overflow: hidden;">
-  <%= link_to product do %>
-    <%= render 'products/product_image', product: product %>
-  <%end %>
+  <div class="text-center mb-1">
+    <%= link_to product do %>
+      <%= render 'products/product_image', product: product %>
+    <%end %>
+  </div>
 
   <div class="py-2" style="height: 42px; overflow: hidden; box-sizing: content-box;">
     <strong>
