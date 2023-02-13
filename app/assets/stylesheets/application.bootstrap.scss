@@ -52,6 +52,10 @@
 
 .button_to {
   display: inline !important;
+
+}
+section.d-flex .button_to:first-child {
+  width: 90%;
 }
 
 .navbar {
