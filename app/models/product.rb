@@ -16,9 +16,9 @@ class Product < ApplicationRecord
     if product_reviews.count == 0
       rate = 0
     else
-      rate = sum / product_reviews.count
+      rate = sum.to_f / product_reviews.count
     end
-    rate
+    rate.round(1)
   end
 
   def review_paginate(page)

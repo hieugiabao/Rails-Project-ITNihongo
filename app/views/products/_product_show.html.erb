@@ -12,16 +12,26 @@
         </div>
         <div class="details col-md-6">
           <h3 class="product-title"><%= @product.name %></h3>
-          <div class="rating">
-            <span class="stars me-3">
-              <% for i in 0...(product.avg_rate) do %>
-                <i class="fa fa-star checked"></i>
-              <% end %>
-              <% for i in 0...(5-@product.avg_rate) do %>
-                <i class="fa fa-star"></i>
-              <% end %>
+          <div class="rating" style="width: 65%;">
+            <span class="score">
+              <span class="score-wrap">
+                <span class="stars-active" style="width:<%= product.avg_rate * 20 %>%">
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                </span>
+                <span class="stars-inactive">
+                  <i class="fa fa-star-o" aria-hidden="true"></i>
+                  <i class="fa fa-star-o" aria-hidden="true"></i>
+                  <i class="fa fa-star-o" aria-hidden="true"></i>
+                  <i class="fa fa-star-o" aria-hidden="true"></i>
+                  <i class="fa fa-star-o" aria-hidden="true"></i>
+                </span>
+              </span>
             </span>
-            <span class="review-no"><%= @product.product_reviews.count %> reviews</span>
+            <span class="review-no scope" style="float: right;"><%= @product.avg_rate %>/5 stars ( <%= pluralize(product.product_reviews.count, " review") %> )</span>
           </div>
           <div class="mb-2">
             <% if product.quantity > 0 %>

@@ -1,5 +1,6 @@
 img {
   max-width: 100%;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
 .preview {
@@ -61,10 +62,10 @@ img {
 
 .tab-content img {
   width: 100%;
-  -webkit-animation-name: opacity;
-  animation-name: opacity;
-  -webkit-animation-duration: 0.3s;
-  animation-duration: 0.3s;
+  // -webkit-animation-name: opacity;
+  // animation-name: opacity;
+  // -webkit-animation-duration: 0.3s;
+  // animation-duration: 0.3s;
 }
 
 .card {
