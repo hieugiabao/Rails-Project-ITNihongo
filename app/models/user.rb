@@ -6,4 +6,5 @@ class User < ApplicationRecord
 
   has_one_attached :avatar
   has_many :orders, dependent: :destroy
+  has_many :products, through: :product_likes
 end
