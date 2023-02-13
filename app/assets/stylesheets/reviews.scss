@@ -1,0 +1,30 @@
+.score {
+  display: inline-block;
+  font-size: 20px;
+  position: relative;
+  overflow: hidden;
+
+  .score-wrap {
+    display: inline-block;
+    position: relative;
+    height: 19px;
+  }
+
+  .stars-active {
+    color: #EEBD01;
+    position: relative;
+    z-index: 10;
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .stars-inactive {
+    color: grey;
+    position: absolute;
+    top: 0;
+    left: 0;
+    -webkit-text-stroke: initial;
+    /* overflow: hidden; */
+  }
+}

@@ -3,9 +3,9 @@
     <div class="d-flex">
       <span>
         <% if review.user.avatar.attached? %>
-          <%= image_tag review.user.avatar, size: "50x45", style: "margin-right: 16px;" %>
+          <%= image_tag review.user.avatar, size: "45x45", style: "margin-right: 16px; border-radius: 50%;" %>
         <% else %>
-          <%= image_tag "avatar.png", size: "45x45", style: "margin-right: 16px;" %>
+          <%= image_tag "no_image.png", size: "45x45", style: "margin-right: 16px;  border-radius: 50%;" %>
         <% end %>
       </span>
       <span>
@@ -16,9 +16,12 @@
               <i class="fa fa-star checked"></i>
             <% end %>
             <% for i in 0...(5-review.rate) do %>
-              <i class="fa fa-star"></i>
+              <i class="fa fa-star-o"></i>
             <% end %>
           </span>
+          <% if review.created_at != review.updated_at %>
+            <span class="text-gray">(edited)</span>
+          <% end %>
         </span>
         <p class="text-gray"><%= review.updated_at.strftime("%F %T") %></p>
       </span>
