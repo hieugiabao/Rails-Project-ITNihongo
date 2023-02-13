@@ -19,5 +19,9 @@ Rails.application.routes.draw do
   post 'review/:id' => 'product_reviews#update', as: 'product_review_update'
   delete 'review/:id' => 'product_reviews#destroy', as: 'product_review_destroy'
 
+  post 'like/:product_id' => 'product_likes#create', as: 'product_like'
+  delete 'like/:product_id' => 'product_likes#destroy', as: 'product_like_destroy'
+  get '/favorites' => 'product_likes#index', as: 'product_likes'
+
   resources :orders
 end

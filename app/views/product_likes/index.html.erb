@@ -1,0 +1,9 @@
+<%= content_for :title, 'My Favourite' %>
+
+<% if @products.count > 0 %>
+  <h3>My favourite (<%= @products.count %>)</h3>
+<% else %>
+  <h3 class="m-5">You haven't liked any gift yet</h3>
+<% end %>
+
+<%= render 'shared/products', :products => @products %>
