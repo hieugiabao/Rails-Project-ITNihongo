@@ -36,7 +36,7 @@
                 <td></td>
                 <td></td>
                 <td>Sub Total</td>
-                <td class="text-right"><%= number_to_currency(@cart.sub_total) %></td>
+                <td class="text-right"><%= number_to_currency(@cart.sub_total, locale: :jp) %></td>
               </tr>
               <tr>
                 <td></td>
@@ -55,7 +55,7 @@
                   <strong>Total</strong>
                 </td>
                 <td class="text-right">
-                  <strong><%= number_to_currency(@cart.sub_total) %></strong>
+                  <strong><%= number_to_currency(@cart.sub_total, locale: :jp) %></strong>
                 </td>
               </tr>
             </tbody>

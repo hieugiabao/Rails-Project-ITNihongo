@@ -24,7 +24,7 @@
   </p>
   <p>
     <h3>Total price:
-      <%= number_to_currency(order.sub_total) %></h3>
+      <%= number_to_currency(order.sub_total, locale: :jp) %></h3>
   </p>
 
   <button type="button" class="btn btn-success" data-toggle="collapse" data-target="#<%= order.id %>">Show Items</button>

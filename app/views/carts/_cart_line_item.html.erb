@@ -41,10 +41,10 @@
 
   <td class="text-right">
     <% if product.sale_price? %>
-      <span style="font-size: 14px; color: red; text-decoration: line-through;"><%= product.price %>$</span><br>
-      <%= product.sale_price %><span>$</span>
+      <span style="font-size: 14px; color: red; text-decoration: line-through;"><%= number_to_currency(product.price, locale: :jp) %></span><br>
+      <%= number_to_currency(product.sale_price, locale: :jp) %><span></span>
     <% else %>
-      <%= product.price %><span>$</span>
+      <%= number_to_currency(product.price, locale: :jp) %>
     <% end %>
   </td>
 

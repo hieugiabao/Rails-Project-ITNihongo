@@ -15,10 +15,10 @@
     Price :
   </strong>
   <% if product.sale_price? %>
-    <%= product.sale_price %>
+    <%= number_to_currency(product.sale_price, locale: :jp) %>
   <% else %>
-    <%= product.price %>
-  <% end %>$
+    <%= number_to_currency(product.price, locale: :jp) %>
+  <% end %>
 
   <p>
 

@@ -2,26 +2,24 @@
 
 <div class="center jumbotron">
   <%= form_for(@order) do |f| %>
-  <div style="margin-top:25px">
-    <%= f.label :pay_method %><br>
-    <%= f.text_field :pay_method, required: true, autofocus: true %>
-  </div>
+    <div class="form-outline mb-4">
+      <%= f.label :description, 'Address', class: "form-label" %><span class="text-danger"> *</span>
+      <%= f.text_field :description , required: true, class: "form-control w-50" %>
+    </div>
+
+    <div class="form-outline mb-4">
+      <%= f.label :pay_method, 'Payment method', class: "form-label" %><span class="text-danger"> *</span>
+      <%= f.select :pay_method, [['Cash on Delivery', 'COD']], { require: true}, {:class => "form-select w-50"} %>
+    </div>
+
+  <% end %>
+
   <div>
-    <%= f.label :description %><br>
-    <%= f.text_field :description %>
-  </div>
-  <div>
-    <%= f.submit "Update Order"%>
+    <h3>Total price:
+    <%= number_to_currency(@order.sub_total, locale: :jp) %></h3>
   </div>
 
-<% end %>
-
-<div>
-  <h3>Total price:
-  <%= number_to_currency(@order.sub_total) %></h3>
-</div>
-
-<button type="button" class="btn btn-success" data-toggle="collapse" aria-expanded="true" data-target="#<%= @order.id %>">Show/Hide Items</button>
+  <button type="button" class="btn btn-success" data-toggle="collapse" aria-expanded="true" data-target="#<%= @order.id %>">Show/Hide Items</button>
   <div id="<%= @order.id %>" class="collapse in">
     <ul class="users">
       <% @order.line_items.each do |item| %>

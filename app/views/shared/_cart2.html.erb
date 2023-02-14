@@ -1,7 +1,7 @@
 <div class="center jumbotron">
   <p>
     <h3>Total price:
-      <%= number_to_currency(@cart.sub_total) %></h3>
+      <%= number_to_currency(@cart.sub_total, locale: :jp) %></h3>
   </p>
   <section>
     <% @cart.line_items.each do |line_item| %>
@@ -14,7 +14,7 @@
             <%= line_item.quantity %>
           </div>
           <div>Total Price:
-            <%= number_to_currency(line_item.total_price) %></div>
+            <%= number_to_currency(line_item.total_price, locale: :jp) %></div>
         </div>
         <hr class="style18">
       </div>

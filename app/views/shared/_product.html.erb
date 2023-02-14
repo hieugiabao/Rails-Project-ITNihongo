@@ -14,17 +14,17 @@
   <div>
     <% if product.sale_price? %>
       <strong>Old Price: </strong>
-      <span style="text-decoration: line-through;color: red;"><%= product.price %> $</span>
+      <span style="text-decoration: line-through;color: red;"><%= number_to_currency(product.price, locale: :jp) %></span>
       <br>
       <strong>
         Sale Price :
       </strong>
-      <span><%= product.sale_price %> $</span>
+      <span><%= number_to_currency(product.sale_price, locale: :jp) %></span>
     <% else %>
       <strong>
         Price :
       </strong>
-      <span><%= product.price %> $</span>
+      <span><%= number_to_currency(product.price, locale: :jp) %></span>
       <div style="height: 20px;"></div>
     <% end %>
   </div>

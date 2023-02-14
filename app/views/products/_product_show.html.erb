@@ -55,10 +55,10 @@
           </div>
           <p class="product-description"><%= @product.description %></p>
           <% if @product.sale_price? %>
-            <h4 class="price">sale price: <span><%= number_to_currency(@product.sale_price) %></span></h4>
-            <h4 class="price old-price">old price: <span style="text-decoration: line-through;"><%= number_to_currency(@product.price) %></span></h4>
+            <h4 class="price">sale price: <span><%= number_to_currency(@product.sale_price, locale: :jp) %></span></h4>
+            <h4 class="price old-price">old price: <span style="text-decoration: line-through;"><%= number_to_currency(@product.price, locale: :jp) %></span></h4>
           <% else %>
-            <h4 class="price">current price: <span><%= number_to_currency(@product.price) %></span></h4>
+            <h4 class="price">current price: <span><%= number_to_currency(@product.price, locale: :jp) %></span></h4>
             <div style="height: 34px;"></div>
           <% end %>
           <div class="action">
@@ -109,7 +109,7 @@
                 <li>Quantity:
                   <%= @current_cart.line_items.find_by(product_id: @product.id).quantity %>
                   | Total Price:
-                  <%= number_to_currency(@current_cart.line_items.find_by(product_id: @product.id).total_price) %>
+                  <%= number_to_currency(@current_cart.line_items.find_by(product_id: @product.id).total_price, locale: :jp) %>
                 </li>
               </ul>
             <%end %>

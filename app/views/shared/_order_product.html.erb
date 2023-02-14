@@ -18,7 +18,15 @@
       <strong>
         Price :
       </strong>
-      $<%= product.price %>
+      <%= number_to_currency(product.price, locale: :jp) %>
     </div>
+    <% if product.sale_price? %>
+      <div>
+        <strong>
+          Sale Price :
+        </strong>
+        <%= number_to_currency(product.sale_price, locale: :jp) %>
+      </div>
+    <% end %>
   </span>
 </li>
