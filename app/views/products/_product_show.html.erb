@@ -12,15 +12,46 @@
         </div>
         <div class="details col-md-6">
           <h3 class="product-title"><%= @product.name %></h3>
-          <div class="rating">
-            <div class="stars">
-              <span class="fa fa-star checked"></span>
-              <span class="fa fa-star checked"></span>
-              <span class="fa fa-star checked"></span>
-              <span class="fa fa-star checked"></span>
-              <span class="fa fa-star checked"></span>
+          <div class="d-flex justify-content-between">
+            <div class="rating" style="width: 65%;">
+              <span class="score">
+                <span class="score-wrap">
+                  <span class="stars-active" style="width:<%= product.avg_rate * 20 %>%">
+                      <i class="fa fa-star" aria-hidden="true"></i>
+                      <i class="fa fa-star" aria-hidden="true"></i>
+                      <i class="fa fa-star" aria-hidden="true"></i>
+                      <i class="fa fa-star" aria-hidden="true"></i>
+                      <i class="fa fa-star" aria-hidden="true"></i>
+                  </span>
+                  <span class="stars-inactive">
+                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                  </span>
+                </span>
+              </span>
+              <span class="review-no scope" style="float: right;"><%= @product.avg_rate %>/5 stars ( <%= pluralize(product.product_reviews.count, " review") %> )</span>
             </div>
-            <span class="review-no">41 reviews</span>
+            <% if user_signed_in? && current_user.is_like_product(product) %>
+              <%= button_to product_like_destroy_path(product), method: :delete, style: "font-size: 24px;" do %>
+                <span><%= product.product_likes.count %></span>
+                <i class="bi bi-heart-fill liked" style="cursor: pointer;color: #6a8a8a"></i>
+              <% end %>
+            <% else %>
+              <%= button_to product_like_path(product), style: "font-size: 24px;" do %>
+                <span><%= product.product_likes.count %></span>
+                <i class="bi bi-heart" style="cursor: pointer;color: #6a8a8a"></i>
+              <% end %>
+            <% end %>
+          </div>
+          <div class="mb-2">
+            <% if product.quantity > 0 %>
+              <%= product.quantity %> products in stock
+            <% else %>
+              <span class="text-danger">Out of stock</span>
+            <% end %>
           </div>
           <p class="product-description"><%= @product.description %></p>
           <% if @product.sale_price? %>
@@ -28,65 +59,76 @@
             <h4 class="price old-price">old price: <span style="text-decoration: line-through;"><%= number_to_currency(@product.price) %></span></h4>
           <% else %>
             <h4 class="price">current price: <span><%= number_to_currency(@product.price) %></span></h4>
+            <div style="height: 34px;"></div>
           <% end %>
           <div class="action">
-
-            <%
-=begin%>
- <%if !@current_cart.products.include?(product)%>
-              <%# if logged_in? %>
-                <!-- Add to Cart -->
-                <%=button_to line_items_path(:product_id => product.id), class: "btn btn-warning" , style: "margin-top:15px;" , params:{productID: product.id} do %>
-                <i class="glyphicon glyphicon-plus" style="color:black;"></i>
+            <%if !@current_cart.products.include?(product)%>
+              <%= button_to line_items_path(:product_id => product.id), class: "btn btn-warning" do %>
+                <i class="bi bi-cart" style="color:black;"></i>
                 Add to Cart
               <% end %>
-              <%# end %>
-              <%else %>
-
-                <!-- See lineItem section below for explanation of line_item links -->
-                <ul class="users">
-                  <!-- <li> -->
-                  <!-- <%#= link_to "Add one", line_item_add_path(:id => line_item), method: :post %> -->
-
-                  <!-- reduce -->
-                  <%=link_to line_item_reduce_path(:id =>@current_cart.line_items.find_by(product_id: product.id)) , method: :post, class: "btn btn-danger" , style: "margin-top:15px;" do %>
-                  <i class="glyphicon glyphicon-minus" style="color:black;"></i>
+            <%else %>
+              <!-- See lineItem section below for explanation of line_item links -->
+              <ul class="users", style="padding-left: 0">
+                <!-- reduce -->
+                <%= button_to line_item_reduce_path(:id =>@current_cart.line_items.find_by(product_id: product.id)) , method: :post, class: "btn btn-danger" do %>
                   Reduce
                 <% end %>
 
                 <!-- add -->
-                <%=link_to line_item_add_path(:id => @current_cart.line_items.find_by(product_id: product.id)) , method: :post , class: "btn btn-success" , style: "margin-top:15px;" do %>
-                <i class="glyphicon glyphicon-plus" style="color:black;"></i>
-                Add
+                <%= button_to line_item_add_path(:id => @current_cart.line_items.find_by(product_id: product.id)) , method: :post , class: "btn btn-success" do %>
+                  Add
+                <% end %>
+
+                <!-- Remove -->
+                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#exampleModal">
+                  <i class="bi bi-trash" style="color:black;"></i>
+                  Remove Item
+                </button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Clear your cart?</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        Are you sure you want to remove item from your cart?
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <%= button_to "Remove", line_item_path(@current_cart.line_items.find_by(product_id: product.id)) , method: :delete, class: "btn btn-danger" %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <li>Quantity:
+                  <%= @current_cart.line_items.find_by(product_id: @product.id).quantity %>
+                  | Total Price:
+                  <%= number_to_currency(@current_cart.line_items.find_by(product_id: @product.id).total_price) %>
+                </li>
+              </ul>
+            <%end %>
+            <p>
+              <!-- Only Admin is allowed to modify products -->
+              <% if user_signed_in? && current_user.admin? %>
+                <%= render "products/action", :product => @product %>
               <% end %>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
-              <!-- Remove -->
-              <%=link_to line_item_path(@current_cart.line_items.find_by(product_id: product.id)) ,method: :delete ,class: "btn btn-warning" , style: "margin-top:15px;" do %>
-              <i class="glyphicon glyphicon-remove" style="color:black;"></i>
-              Remove Item
-            <% end %>
+<% if !product_review.nil? %>
+  <%= render 'shared/review_create', product_review: product_review, product: product %>
+<% end %>
 
-            <li>Quantity:
-              <%= @current_cart.line_items.find_by(product_id: product.id).quantity %>
-              | Total Price:
-              <%= number_to_currency(@current_cart.line_items.find_by(product_id: product.id).total_price) %>
-              <hr class="style18"/>
-          </ul>
-        <%end %>
-<%
-=end%>
-      </p>
+<%= render 'review', product_reviews: product.review_paginate(params[:page]) %>
 
-      <p>
-
-        <!-- Only Admin is allowed to modify products -->
-        <% if user_signed_in? && current_user.admin? %>
-          <%= render "products/action", :product => @product %>
-        <% end %>
-    </p>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>

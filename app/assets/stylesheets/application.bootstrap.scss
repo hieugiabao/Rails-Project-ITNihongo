@@ -1,6 +1,7 @@
 @import 'bootstrap/scss/bootstrap';
 @import 'bootstrap-icons/font/bootstrap-icons';
 @import 'products';
+@import 'reviews';
 
 .avatar_img {
   width: 40px;
@@ -26,6 +27,10 @@
 
     img {
       max-height: 150px;
+
+      &:hover {
+        transform: scale(1.1);
+      }
     }
   }
 }
@@ -47,6 +52,10 @@
 
 .button_to {
   display: inline !important;
+
+}
+section.d-flex .button_to:first-child {
+  width: 90%;
 }
 
 .navbar {

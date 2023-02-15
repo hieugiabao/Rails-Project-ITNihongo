@@ -3,17 +3,17 @@
     <i class="bi bi-pencil" style="color:darkgray"></i>
     <span>Edit</span>
   <% end %>
-  <button type="button" data-toggle="modal" data-target="#confirmModal">
+  <button type="button" data-toggle="modal" data-target="#confirmModal<%= product.id %>">
     <i class="bi bi-trash" style="color:firebrick"></i>
     <span>Destroy</span>
   </button>
 
   <!-- Modal -->
-  <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
+  <div class="modal fade" id="confirmModal<%= product.id %>" tabindex="-1" role="dialog" aria-labelledby="confirmModal<%= product.id %>Label" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="confirmModalLabel">Delete this present?</h5>
+          <h5 class="modal-title" id="confirmModal<%= product.id %>Label">Delete this present?</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>

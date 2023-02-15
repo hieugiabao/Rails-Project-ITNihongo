@@ -27,6 +27,9 @@ class LineItemsController < ApplicationController
     if @line_item.quantity < @line_item.product.quantity
       @line_item.quantity += 1
       @line_item.save
+      flash[:notice] = 'Product quantity increased!'
+    else
+      flash[:notice] = 'Product quantity is at maximum!'
     end
     redirect_back(fallback_location: @current_cart)
   end
@@ -36,6 +39,7 @@ class LineItemsController < ApplicationController
     if @line_item.quantity > 1
       @line_item.quantity -= 1
       @line_item.save
+      flash[:notice] = 'Product quantity reduced!'
       redirect_back(fallback_location: @current_cart)
     elsif @line_item.quantity == 1
       destroy

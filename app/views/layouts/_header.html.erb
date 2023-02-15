@@ -10,7 +10,7 @@
           <%= link_to "ホーム", root_path, class: "nav-link active" %>
         </li>
         <li class="nav-item">
-          <%= link_to "Product", products_path, class: "nav-link" %>
+          <%= link_to "My favourites", product_likes_path, class: "nav-link" %>
         </li>
       </ul>
       <%= form_tag(products_path, :method => "get", id: "search-form", class: "mx-5") do %>
@@ -35,6 +35,8 @@
           <button type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <% if current_user.avatar.attached? %>
               <%= image_tag(current_user.avatar, :class => "avatar_img" )%>
+            <% else %>
+              <%= image_tag("no_image.png", :class => "avatar_img" )%>
             <% end %>
             <span>
               <%= current_user.name %>

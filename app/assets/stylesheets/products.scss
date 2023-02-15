@@ -1,5 +1,6 @@
 img {
   max-width: 100%;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
 .preview {
@@ -63,8 +64,8 @@ img {
   width: 100%;
   -webkit-animation-name: opacity;
   animation-name: opacity;
-  -webkit-animation-duration: 0.3s;
-  animation-duration: 0.3s;
+  -webkit-animation-duration: 0.5s;
+  animation-duration: 0.5s;
 }
 
 .card {
@@ -227,4 +228,8 @@ button {
     -webkit-transform: scale(1);
     transform: scale(1);
   }
+}
+
+i.liked {
+  color: #f82d09 !important;
 }

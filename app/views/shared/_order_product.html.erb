@@ -1,5 +1,5 @@
-<li>
-  <%= link_to product do%>
+<li class="d-flex gap-2">
+  <%= link_to product, data: {turbo: false} do%>
     <% if product.cover.attached? %>
       <%= image_tag product.cover , size:"64x64" %>
     <% else %>
@@ -7,13 +7,18 @@
     <%end%>
   <%end %>
 
-  <strong>
-    Name :
-  </strong>
-  <%= product.name %>
-  ,<strong>
-    Price :
-  </strong>
-  <%= product.price %> $
-
+  <span class="d-flex flex-column me-1">
+    <div>
+      <strong>
+        Name :
+      </strong>
+      <%= product.name %>
+    </div>
+    <div>
+      <strong>
+        Price :
+      </strong>
+      $<%= product.price %>
+    </div>
+  </span>
 </li>

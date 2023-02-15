@@ -9,6 +9,11 @@ class ProductsController < ApplicationController
 
   # GET /products/1 or /products/1.json
   def show
+    @product_review = if is_ordered
+                        ProductReview.new
+                      else
+                        nil
+                      end
   end
 
   # GET /products/new
@@ -78,5 +83,17 @@ class ProductsController < ApplicationController
                     Product.order(created_at: :asc)
                            .paginate(page: params[:page], per_page: 5)
                   end
+    end
+
+    def is_ordered
+      if current_user.nil?
+        return false
+      end
+      current_user.orders.each do |order|
+        order.line_items.each do |line_item|
+          return true if line_item.product_id == @product.id
+        end
+      end
+      false
     end
 end

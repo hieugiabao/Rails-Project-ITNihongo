@@ -1,0 +1,47 @@
+<div class="container mt-3">
+  <h5>Create your review</h5>
+  <%= form_for(product_review, url: product_review_path(product_review), data: { turbo: false }) do |f| %>
+    <div>
+      <%= f.label :rate, 'Rate', class: "form-label" %>
+      <div class="rating review_create">
+        <span class="stars me-3" style="cursor: pointer;">
+          <i class="fa fa-star checked px-1" data-rating="1"></i>
+          <i class="fa fa-star checked px-1" data-rating="2"></i>
+          <i class="fa fa-star checked px-1" data-rating="3"></i>
+          <i class="fa fa-star checked px-1" data-rating="4"></i>
+          <i class="fa fa-star checked px-1" data-rating="5"></i>
+        </span>
+      </div>
+      <%= f.number_field :rate, hidden: true, id: "rating", value: 5 %>
+    </div>
+      <%= f.hidden_field :product_id, value: product.id %>
+    <div class="form-outline mb-4">
+      <%= f.label :content, 'Review', class: "form-label" %><span class="text-danger"> *</span>
+      <%= f.text_area :content, autocomplete: false, class: "form-control", id: "content", style: "max-height: 100px" %>
+    </div>
+
+    <div class="mb-4">
+      <%= f.submit "Review", class: "btn btn-primary btn-block mb-4" %>
+    </div>
+  <% end %>
+</div>
+
+<script type="application/javascript">
+  let stars = document.querySelectorAll('.rating.review_create i.fa.fa-star');
+  stars.forEach((star) => {
+    star.addEventListener('click', () => {
+      const rating = star.getAttribute('data-rating');
+      document.getElementById('rating').value = rating;
+      for (let i = 0; i < rating; i++) {
+        stars[i].classList.remove('fa-star-o');
+        stars[i].classList.add('fa-star');
+        stars[i].classList.add('checked');
+      }
+      for (let i = rating; i < 5; i++) {
+        stars[i].classList.remove('checked');
+        stars[i].classList.remove('fa-star');
+        stars[i].classList.add('fa-star-o');
+      }
+    });
+  });
+</script>

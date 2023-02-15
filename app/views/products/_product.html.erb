@@ -1,5 +1,5 @@
 <span>
-  <%= link_to product do%>
+  <%= link_to product, data: {turbo: false} do%>
     <% if product.cover.attached? %>
       <%= image_tag product.cover , size:"100x100", style: "border-radius: 4px; margin-right: 16px;"%>
     <% else %>

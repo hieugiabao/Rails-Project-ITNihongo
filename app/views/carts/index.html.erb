@@ -35,7 +35,7 @@
                 <td></td>
                 <td></td>
                 <td></td>
-                <td>Sub-Total</td>
+                <td>Sub Total</td>
                 <td class="text-right"><%= number_to_currency(@cart.sub_total) %></td>
               </tr>
               <tr>
@@ -66,16 +66,16 @@
         <div class="row">
           <% if(@current_cart.line_items.count !=0 ) %>
             <div class="col-sm-6">
-              <button type="button" class="btn btn-lg btn-block btn-warning text-uppercase" data-toggle="modal" data-target="#exampleModal">
+              <button type="button" class="btn btn-lg btn-block btn-warning text-uppercase" data-toggle="modal" data-target="#deleteAllModal">
                 Delete all
               </button>
 
               <!-- Modal -->
-              <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal fade" id="deleteAllModal" tabindex="-1" role="dialog" aria-labelledby="deleteAllModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                   <div class="modal-content">
                     <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalLabel">Clear your cart?</h5>
+                      <h5 class="modal-title" id="deleteAllModalLabel">Clear your cart?</h5>
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                       </button>
